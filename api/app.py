@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from frequencies import Frequencies
 from textstats import TextStats
-import json
+from werkzeug.serving import run_simple
+from werkzeug.wrappers import Request, Response
 
-import flask
-app = flask.Flask(__name__)
+import json
 
 corpus = Frequencies("en")
 
@@ -20,20 +20,20 @@ def process(nodes):
     return {"words":zsorted, "meta": stats.meta}
 
 
-@app.route("/stats", methods=["GET", "POST"])
-def stats():
+@Request.application
+def application(request):
     results = {}
     mpa = dict.fromkeys(range(32))
 
-    if flask.request.method == "POST":
-        data = flask.request.data
+    if request.method == "POST":
+        data = request.data
         # Remove control characters
         data = json.loads(''.join(c for c in data if ord(c) >= 32))
         if "nodes" in data:
             results = process(data["nodes"])
 
-    return flask.jsonify(results=results)
+    return Response(json.dumps(results), headers={"Content-Type": "application/json"})
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    run_simple('localhost', 5000, application, use_reloader=True)

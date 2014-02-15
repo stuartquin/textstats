@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 frequency_dir = "frequencies/"
 
 # Some hard coded stats about the corpus frequency files
