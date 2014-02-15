@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from collections import defaultdict
 import math
 import numpy
@@ -33,9 +35,8 @@ class TextStats:
         return doc_frequency / float(len(self.document))
 
     def idf(self, word):
-        # Hard coded divide by zero protection
         return math.log(self.corpus.stats["total_documents"] /
-               float(self.corpus.get(word)) + 1)
+               float(self.corpus.get(word) + 1.0) + 1.0)
 
     def get_z_score(self, mean, std, score):
         """ Calculates and returns Z-score """

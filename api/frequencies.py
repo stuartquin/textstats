@@ -18,7 +18,7 @@ class Frequencies:
         self.load_corpus_frequency(frequency_dir + self.language + ".txt")
 
     def get(self, word):
-        return abs(self.frequencies.get(word, 1))
+        return abs(self.frequencies.get(word, 0))
 
     def load_corpus_frequency(self, file_name):
         """
