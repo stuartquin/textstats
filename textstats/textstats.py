@@ -53,7 +53,7 @@ class TextStats:
 
         for word in stats:
             score = self.get_z_score(mean, std, stats[word]["score"]) 
-            stats[word]["z-score"] = score
+            stats[word]["z_score"] = score
 
             if score < z_min_score or z_min_score == 0.0:
                 z_min_score = score
@@ -119,3 +119,4 @@ class TextStats:
                     }
 
         self.stats = self.attach_z_scores(stats, scores)
+        return self.stats

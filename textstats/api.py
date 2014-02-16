@@ -2,12 +2,12 @@ from frequencies import Frequencies
 from textstats import TextStats
 
 corpus = Frequencies("en")
-valid_keys = ["z-score", "word", "is_stop", "tf", "idf", "corpus_frequency",
+valid_keys = ["z_score", "word", "is_stop", "tf", "idf", "corpus_frequency",
               "weighted_frequency"]
 
 def get_parameters(args):
     params = {
-        "order_by":  args.get("order_by", "z-score"),
+        "order_by":  args.get("order_by", "z_score"),
         "limit": int(args.get("limit", 10)),
         "direction": args.get("direction", "desc")
     }
@@ -37,8 +37,7 @@ def process(data, args):
     for node in nodes:
         stats.add_node(node["text"], node["weighting"])
 
-    stats.calculate_scores()
-    words = stats.stats
-    results = apply_params(words.values(), params)
+    scored = stats.calculate_scores()
+    results = apply_params(scored.values(), params)
 
     return {"words":results, "meta": stats.meta}

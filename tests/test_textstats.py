@@ -47,3 +47,12 @@ class TestTextStats:
         self.stats.add_node(content,2)
         assert(self.stats.document_counts["content"] == 4)
         assert(len(self.stats.nodes) == 3)
+
+    def test_calculate_scores(self):
+        content = "rare_word to test the test content of this text rare_word"
+        self.stats.add_node(content)
+        scored = self.stats.calculate_scores() 
+
+        assert(len(scored) == 8)
+        assert(scored["rare_word"]["z_score"] > scored["test"]["z_score"])
+        assert(scored["to"]["is_stop"])
