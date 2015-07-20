@@ -3,4 +3,5 @@ test:
     - py.test --junitxml=$CIRCLE_TEST_REPORTS/pytest/junit.xml tests
 dependencies:
   pre:
-    - pip install pytest
+    - pip install .
+    - pip install pytest mock

@@ -54,5 +54,5 @@ class TestTextStats:
         scored = self.stats.calculate_scores() 
 
         assert(len(scored) == 8)
-        assert(scored["rare_word"]["z_score"] > scored["test"]["z_score"])
+        assert(scored["rare_word"]["z_score"] >= scored["test"]["z_score"])
         assert(scored["to"]["is_stop"])
